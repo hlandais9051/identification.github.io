@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <img src="ab.png" alt="Logo" class="corner-logo" />
+    <div id="notification-container"></div>
+    <div class="container" id="bg-animation"></div>
+
+    <div class="login-box">
+      <h2 id="dev-trigger">Identification</h2>
+      <form id="auth-form">
+        <div class="input-box">
+          <input type="text" id="username" required /><label>IDENTIFIANT</label>
+        </div>
+        <div class="input-box">
+          <input type="password" id="password" required />
+          <label>MOT DE PASSE</label>
+          <i class="ri-eye-off-fill" id="togglePassword"></i>
+        </div>
+        <button type="submit" class="btn">Se Connecter</button>
+      </form>
+      <p style="text-align: center; margin-top: 15px; font-size: 0.8em">
+        <a
+          href="#"
+          onclick="ouvrirCreationPass()"
+          style="color: rgb(255, 0, 0); text-decoration: none; opacity: 0.8"
+        >
+          Créez votre mot de passe
+        </a>
+      </p>
+    </div>
+
+    <div
+      id="user-creation-modal"
+      style="
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 380px;
+        background: rgba(0, 0, 0, 0.95);
+        border: 2px solid rgb(255, 0, 0);
+        border-radius: 25px;
+        z-index: 100;
+        padding: 30px;
+        color: rgb(255, 0, 0);
+        text-align: center;
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+      "
+    >
+      <h3 style="margin-bottom: 20px; letter-spacing: 1px">
+        PREMIÈRE CONNEXION
+      </h3>
+
+      <div id="reg-step-1">
+        <p style="margin-bottom: 15px">Qui êtes-vous ?</p>
+        <button class="admin-btn" onclick="choisirUtilisateurCreation('Jeano')">
+          Jeano
+        </button>
+        <button class="admin-btn" onclick="choisirUtilisateurCreation('Gueno')">
+          Gueno
+        </button>
+        <button class="admin-btn secondary" onclick="fermerCreation()">
+          Annuler
+        </button>
+      </div>
+
+      <div id="reg-step-2" style="display: none">
+        <p id="reg-label-final" style="margin-bottom: 15px"></p>
+        <input
+          type="password"
+          id="reg-password"
+          class="admin-input"
+          placeholder="Choisir un mot de passe"
+        />
+        <button class="admin-btn" onclick="validerCreationUtilisateur()">
+          Enregistrer
+        </button>
+        <button class="admin-btn secondary" onclick="retourChoixUtilisateur()">
+          ⬅ Retour
+        </button>
+      </div>
+    </div>
+
+    <div id="admin-modal">
+      <h3
+        style="margin-bottom: 20px; color: rgb(255, 0, 0); letter-spacing: 1px"
+      >
+        PANEL ADMIN
+      </h3>
+      <div id="sec-step-1" class="admin-section active">
+        <p style="margin-bottom: 15px; font-size: 0.9em">
+          Entrez le code développeur :
+        </p>
+        <input
+          type="password"
+          id="admin-code-input"
+          class="admin-input"
+          placeholder="••••••••••••••••"
+        />
+        <button class="admin-btn" onclick="verifierCodeAdmin()">Valider</button>
+        <button class="admin-btn secondary" onclick="fermerAdmin()">
+          Annuler
+        </button>
+      </div>
+      <div id="sec-step-2" class="admin-section">
+        <button class="admin-btn" onclick="ouvrirVoirPass()">
+          1. Voir les mots de passe
+        </button>
+        <button class="admin-btn" onclick="changerEtape(3)">
+          2. Modifier un mot de passe
+        </button>
+        <button class="admin-btn secondary" onclick="fermerAdmin()">
+          Quitter
+        </button>
+      </div>
+      <div id="sec-step-3" class="admin-section">
+        <p style="margin-bottom: 15px">Modifier quel utilisateur ?</p>
+        <button class="admin-btn" onclick="preparerNouveauPass('Jeano')">
+          Jeano
+        </button>
+        <button class="admin-btn" onclick="preparerNouveauPass('Gueno')">
+          Gueno
+        </button>
+        <button class="admin-btn secondary" onclick="changerEtape(2)">
+          ⬅ Retour
+        </button>
+      </div>
+      <div id="sec-step-4" class="admin-section">
+        <p id="label-nouveau-pass" style="margin-bottom: 15px"></p>
+        <input
+          type="text"
+          id="new-pass-input"
+          class="admin-input"
+          placeholder="Nouveau mot de passe"
+        />
+        <button class="admin-btn" onclick="sauvegarderNouveauPass()">
+          Enregistrer
+        </button>
+        <button class="admin-btn secondary" onclick="changerEtape(3)">
+          ⬅ Retour
+        </button>
+      </div>
+      <div id="sec-step-5" class="admin-section">
+        <p style="margin-bottom: 15px; color: rgb(255, 0, 0)">
+          Archives sécurisées
+        </p>
+        <div class="pass-display-box">
+          <div class="pass-line">
+            <span class="user-label">Jeano</span
+            ><span class="user-value" id="disp-jeano">---</span>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              padding: 8px 0;
+            "
+          >
+            <span class="user-label">Gueno</span
+            ><span class="user-value" id="disp-gueno">---</span>
+          </div>
+        </div>
+        <button class="admin-btn secondary" onclick="changerEtape(2)">
+          ⬅ Retour
+        </button>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
